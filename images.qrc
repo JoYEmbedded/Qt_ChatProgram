@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/new/prefix1">
+        <file>images/favicon.ico</file>
+        <file>images/Tencent.png</file>
+        <file>images/bg.jpg</file>
+        <file>images/B.png</file>
+        <file>images/I.png</file>
+        <file>images/U.png</file>
+        <file>images/B_transparent.ico</file>
+        <file>images/color.png</file>
+    </qresource>
+</RCC>
