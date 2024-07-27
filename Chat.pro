@@ -11,16 +11,13 @@ CONFIG += c++17
 
 SOURCES += \
     main.cpp \
-    mainwidget.cpp \
-    secondwidget.cpp
+    mainwidget.cpp
 
 HEADERS += \
-    mainwidget.h \
-    secondwidget.h
+    mainwidget.h
 
 FORMS += \
-    mainwidget.ui \
-    secondwidget.ui
+    mainwidget.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

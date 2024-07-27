@@ -112,12 +112,13 @@ void MainWidget::on_pushButton_emit_clicked()
         //借助新的textedit生成默认格式的html text string格式
         QTextEdit *timeTextEdit = new QTextEdit;
         QString timeContent = QTime::currentTime().toString();
-        timeTextEdit->setText(timeContent);
+        timeTextEdit->setText(QString("[%1]").arg(serverPort) + timeContent);
         QString timeContentToHtml = timeTextEdit->document()->toHtml();
 
         QString htmlContent = ui->textEdit_Input->document()->toHtml();
-        chatContent = chatContent + timeContentToHtml + htmlContent;
-        ui->textBrowser->setHtml(chatContent);
+        chatContent = timeContentToHtml + htmlContent;
+
+        ui->textBrowser->append(chatContent);
 
         //通信
 
@@ -125,7 +126,7 @@ void MainWidget::on_pushButton_emit_clicked()
         QByteArray sendMsg;
         sendMsg = chatContent.toUtf8();
         myUdpSocket->writeDatagram(sendMsg,QHostAddress(ip),guestPort);
-
+        ui->textEdit_Input->setText("");
     }
 }
 
@@ -144,31 +145,34 @@ void MainWidget::udpInit()
 
 void MainWidget::dealMsg()
 {
-    char buf[1024] = {0};
+    char buf[10240] = {0};
     QHostAddress cliAddr;
     cliAddr.setAddress(ui->lineEdit_IP->text());
     qint64 len = myUdpSocket->readDatagram(buf,sizeof(buf),&cliAddr,&guestPort);
-
-    QTextEdit *guestTextEdit = new QTextEdit(this);
-    QString timeContent = QTime::currentTime().toString();
-    guestTextEdit->setText(timeContent);
-    QString timeContentToHtml = guestTextEdit->document()->toHtml();
-
+    QString html_sentence = QString::fromUtf8(buf);
     if(len>0)
     {
-        QString msg = QString("[%1:%2]%3")
-        .arg(cliAddr.toString())
-        .arg(guestPort)
-                          .arg(buf);
-        guestTextEdit->setText(msg);
-        QString msgToHtml = guestTextEdit->document()->toHtml();
-        chatContent = chatContent + timeContentToHtml + msgToHtml;
-        ui->textBrowser->setHtml(chatContent);
+        ui->textBrowser->append(html_sentence);
+
     }
 }
 
 void MainWidget::on_lineEdit_Port_editingFinished()
 {
-    guestPort = ui->lineEdit_Port->text().toInt();
+    guestPort = ui->lineEdit_otherPort->text().toInt();
+}
+
+
+void MainWidget::on_lineEdit_myPort_editingFinished()
+{
+    serverPort = ui->lineEdit_myPort->text().toInt();
+    myUdpSocket->bind(serverPort);
+    MainWidget::setWindowTitle(QString("MicroQQ（端口:%1)").arg(serverPort));
+}
+
+
+void MainWidget::on_lineEdit_otherPort_editingFinished()
+{
+    guestPort = ui->lineEdit_otherPort->text().toInt();
 }
 

@@ -201,7 +201,7 @@ color: rgb(255, 255, 255);
     <rect>
      <x>20</x>
      <y>90</y>
-     <width>51</width>
+     <width>71</width>
      <height>20</height>
     </rect>
    </property>
@@ -211,7 +211,7 @@ color: rgb(255, 255, 255);
 </string>
    </property>
    <property name="text">
-    <string>端口：</string>
+    <string>我的端口：</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="lineEdit_IP">
@@ -224,12 +224,40 @@ color: rgb(255, 255, 255);
     </rect>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_Port">
+  <widget class="QLineEdit" name="lineEdit_myPort">
    <property name="geometry">
     <rect>
-     <x>70</x>
+     <x>100</x>
      <y>90</y>
-     <width>221</width>
+     <width>151</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>260</x>
+     <y>90</y>
+     <width>71</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(177, 177, 177);
+color: rgb(255, 255, 255);
+</string>
+   </property>
+   <property name="text">
+    <string>对方端口：</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_otherPort">
+   <property name="geometry">
+    <rect>
+     <x>340</x>
+     <y>90</y>
+     <width>151</width>
      <height>25</height>
     </rect>
    </property>

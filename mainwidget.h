@@ -8,6 +8,7 @@
 #include <QTime>
 #include <QShortcut>
 #include <QUdpSocket>
+#include <QTextDocumentFragment>
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWidget;
@@ -49,5 +50,7 @@ private slots:
     void on_pushButton_emit_clicked();
     void on_pushButton_exit_clicked();
     void on_lineEdit_Port_editingFinished();
+    void on_lineEdit_myPort_editingFinished();
+    void on_lineEdit_otherPort_editingFinished();
 };
 #endif // MAINWIDGET_H
