@@ -7,7 +7,8 @@ MainWidget::MainWidget(QWidget *parent)
 {
     ui->setupUi(this);
     fontsizeInit();
-
+    shortcutInit();
+    udpInit();
 }
 
 MainWidget::~MainWidget()
@@ -52,7 +53,7 @@ void MainWidget::shortcutInit()
     QShortcut *exit_shortcut = new QShortcut(QKeySequence("ESC"),this);
     connect(exit_shortcut,&QShortcut::activated,this,&MainWidget::on_pushButton_exit_clicked);
 
-    QShortcut *emit_shortcut = new QShortcut(QKeySequence("Enter"),this);
+    QShortcut *emit_shortcut = new QShortcut(QKeySequence("Ctrl+E"),this);
     connect(emit_shortcut,&QShortcut::activated,this,&MainWidget::on_pushButton_emit_clicked);
 }
 void MainWidget::on_comboBox_Fontsize_activated(int index)
@@ -118,6 +119,13 @@ void MainWidget::on_pushButton_emit_clicked()
         chatContent = chatContent + timeContentToHtml + htmlContent;
         ui->textBrowser->setHtml(chatContent);
 
+        //通信
+
+        QString ip = ui->lineEdit_IP->text();
+        QByteArray sendMsg;
+        sendMsg = chatContent.toUtf8();
+        myUdpSocket->writeDatagram(sendMsg,QHostAddress(ip),guestPort);
+
     }
 }
 
@@ -125,5 +133,42 @@ void MainWidget::on_pushButton_emit_clicked()
 void MainWidget::on_pushButton_exit_clicked()
 {
     QApplication::quit();
+}
+
+void MainWidget::udpInit()
+{
+    myUdpSocket = new QUdpSocket(this);
+    myUdpSocket->bind(8888);
+    connect(myUdpSocket,&QUdpSocket::readyRead,this,&MainWidget::dealMsg);
+}
+
+void MainWidget::dealMsg()
+{
+    char buf[1024] = {0};
+    QHostAddress cliAddr;
+    cliAddr.setAddress(ui->lineEdit_IP->text());
+    qint64 len = myUdpSocket->readDatagram(buf,sizeof(buf),&cliAddr,&guestPort);
+
+    QTextEdit *guestTextEdit = new QTextEdit(this);
+    QString timeContent = QTime::currentTime().toString();
+    guestTextEdit->setText(timeContent);
+    QString timeContentToHtml = guestTextEdit->document()->toHtml();
+
+    if(len>0)
+    {
+        QString msg = QString("[%1:%2]%3")
+        .arg(cliAddr.toString())
+        .arg(guestPort)
+                          .arg(buf);
+        guestTextEdit->setText(msg);
+        QString msgToHtml = guestTextEdit->document()->toHtml();
+        chatContent = chatContent + timeContentToHtml + msgToHtml;
+        ui->textBrowser->setHtml(chatContent);
+    }
+}
+
+void MainWidget::on_lineEdit_Port_editingFinished()
+{
+    guestPort = ui->lineEdit_Port->text().toInt();
 }
 

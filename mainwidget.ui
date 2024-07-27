@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>587</width>
+    <width>569</width>
     <height>666</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MicroQQ</string>
+   <string>MicroQQ(8888)</string>
   </property>
   <property name="windowIcon">
    <iconset resource="images.qrc">
@@ -111,9 +111,9 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>30</y>
+     <y>120</y>
      <width>531</width>
-     <height>311</height>
+     <height>221</height>
     </rect>
    </property>
   </widget>
@@ -155,6 +155,9 @@
      <height>28</height>
     </rect>
    </property>
+   <property name="toolTip">
+    <string>Ctrl+E</string>
+   </property>
    <property name="text">
     <string>发送</string>
    </property>
@@ -168,8 +171,67 @@
      <height>28</height>
     </rect>
    </property>
+   <property name="toolTip">
+    <string>ESC</string>
+   </property>
    <property name="text">
     <string>退出</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>60</y>
+     <width>31</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(177, 177, 177);
+color: rgb(255, 255, 255);
+</string>
+   </property>
+   <property name="text">
+    <string>IP:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>90</y>
+     <width>51</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(177, 177, 177);
+color: rgb(255, 255, 255);
+</string>
+   </property>
+   <property name="text">
+    <string>端口：</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_IP">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>60</y>
+     <width>221</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_Port">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>90</y>
+     <width>221</width>
+     <height>25</height>
+    </rect>
    </property>
   </widget>
  </widget>

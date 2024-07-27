@@ -7,6 +7,7 @@
 #include <QColorDialog>
 #include <QTime>
 #include <QShortcut>
+#include <QUdpSocket>
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWidget;
@@ -25,10 +26,15 @@ private:
     Ui::MainWidget *ui;
     QColor fontColor;
     QString chatContent;
+    QUdpSocket *myUdpSocket;
+    quint16 guestPort;
+    quint16 serverPort;
     //重绘，实现窗口自由缩放
     void paintEvent(QPaintEvent *event) override;
     void fontsizeInit();
     void shortcutInit();
+    void udpInit();
+    void dealMsg();
 protected:
 
 private slots:
@@ -42,5 +48,6 @@ private slots:
     void on_pushButton_Color_clicked();
     void on_pushButton_emit_clicked();
     void on_pushButton_exit_clicked();
+    void on_lineEdit_Port_editingFinished();
 };
 #endif // MAINWIDGET_H

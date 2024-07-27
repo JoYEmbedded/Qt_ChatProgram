@@ -8,5 +8,6 @@
         <file>images/U.png</file>
         <file>images/B_transparent.ico</file>
         <file>images/color.png</file>
+        <file>images/guestBG.jpg</file>
     </qresource>
 </RCC>
